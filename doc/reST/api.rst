@@ -592,3 +592,146 @@ thus becomes the default bit-depth for the combined library.
 
 	STATIC_LINK_CRT is also recommended so end-users will not need to
 	install any additional MSVC C runtime libraries.
+
+Examples
+========
+
+Here are some examples to help you understand how to use the x265 API.
+
+Example 1: Basic Encoding
+-------------------------
+
+This example demonstrates how to perform basic encoding using the x265 API.
+
+.. code-block:: c
+
+    #include <x265.h>
+
+    int main() {
+        x265_param *param = x265_param_alloc();
+        x265_param_default_preset(param, "medium", NULL);
+        x265_param_apply_profile(param, "main");
+
+        x265_encoder *encoder = x265_encoder_open(param);
+        x265_picture *pic_in = x265_picture_alloc();
+        x265_picture_init(param, pic_in);
+
+        // Set up input picture data
+        // ...
+
+        x265_nal *nals;
+        uint32_t nal_count;
+        x265_picture *pic_out = x265_picture_alloc();
+
+        int ret = x265_encoder_encode(encoder, &nals, &nal_count, pic_in, pic_out);
+        if (ret < 0) {
+            // Handle encoding error
+        }
+
+        // Process encoded NAL units
+        // ...
+
+        x265_picture_free(pic_in);
+        x265_picture_free(pic_out);
+        x265_encoder_close(encoder);
+        x265_param_free(param);
+
+        return 0;
+    }
+
+Example 2: Reconfiguring Encoder Parameters
+-------------------------------------------
+
+This example demonstrates how to reconfigure encoder parameters mid-encode.
+
+.. code-block:: c
+
+    #include <x265.h>
+
+    int main() {
+        x265_param *param = x265_param_alloc();
+        x265_param_default_preset(param, "medium", NULL);
+        x265_param_apply_profile(param, "main");
+
+        x265_encoder *encoder = x265_encoder_open(param);
+        x265_picture *pic_in = x265_picture_alloc();
+        x265_picture_init(param, pic_in);
+
+        // Set up input picture data
+        // ...
+
+        x265_nal *nals;
+        uint32_t nal_count;
+        x265_picture *pic_out = x265_picture_alloc();
+
+        int ret = x265_encoder_encode(encoder, &nals, &nal_count, pic_in, pic_out);
+        if (ret < 0) {
+            // Handle encoding error
+        }
+
+        // Reconfigure encoder parameters
+        x265_param *new_param = x265_param_alloc();
+        x265_param_default_preset(new_param, "fast", NULL);
+        x265_encoder_reconfig(encoder, new_param);
+
+        // Continue encoding with new parameters
+        ret = x265_encoder_encode(encoder, &nals, &nal_count, pic_in, pic_out);
+        if (ret < 0) {
+            // Handle encoding error
+        }
+
+        // Process encoded NAL units
+        // ...
+
+        x265_picture_free(pic_in);
+        x265_picture_free(pic_out);
+        x265_encoder_close(encoder);
+        x265_param_free(param);
+        x265_param_free(new_param);
+
+        return 0;
+    }
+
+Example 3: Using Analysis Buffers
+---------------------------------
+
+This example demonstrates how to use analysis buffers for multiple bitrate encodes.
+
+.. code-block:: c
+
+    #include <x265.h>
+
+    int main() {
+        x265_param *param = x265_param_alloc();
+        x265_param_default_preset(param, "medium", NULL);
+        x265_param_apply_profile(param, "main");
+
+        x265_encoder *encoder = x265_encoder_open(param);
+        x265_picture *pic_in = x265_picture_alloc();
+        x265_picture_init(param, pic_in);
+
+        // Set up input picture data
+        // ...
+
+        x265_alloc_analysis_data(pic_in);
+
+        x265_nal *nals;
+        uint32_t nal_count;
+        x265_picture *pic_out = x265_picture_alloc();
+
+        int ret = x265_encoder_encode(encoder, &nals, &nal_count, pic_in, pic_out);
+        if (ret < 0) {
+            // Handle encoding error
+        }
+
+        // Process encoded NAL units
+        // ...
+
+        x265_free_analysis_data(pic_in);
+        x265_picture_free(pic_in);
+        x265_picture_free(pic_out);
+        x265_encoder_close(encoder);
+        x265_param_free(param);
+
+        return 0;
+    }

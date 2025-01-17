@@ -22,6 +22,16 @@ compression as the previous standard (H.264/MPEG-4 AVC).  HEVC can
 support 8K Ultra High Definition video, with a picture size up to
 8192x4320 pixels.
 
+Benefits of HEVC
+================
+
+HEVC offers several benefits over previous video coding standards:
+
+1. **Higher Compression Efficiency**: HEVC can achieve up to 50% better compression than H.264, which means it can deliver the same video quality at half the bitrate or double the video quality at the same bitrate.
+2. **Support for Higher Resolutions**: HEVC supports resolutions up to 8K UHD (8192x4320), making it suitable for the latest high-resolution displays.
+3. **Improved Video Quality**: HEVC includes advanced techniques for motion compensation and prediction, which result in better video quality, especially for high-motion content.
+4. **Adaptive Streaming**: HEVC is designed to work well with adaptive streaming technologies, allowing for smoother playback on a variety of devices and network conditions.
+
 About x265
 ==========
 
@@ -32,6 +42,15 @@ encoder is available as an open source library, published under the
 GPLv2 license. It is also available under a commercial license, enabling
 commercial companies to utilize and distribute x265 in their solutions
 without being subject to the restrictions of the GPL license.
+
+Advantages of Using x265
+========================
+
+1. **High Compression Efficiency**: x265 is designed to provide the highest possible compression efficiency, which means it can deliver high-quality video at lower bitrates.
+2. **Performance Optimization**: x265 is optimized for a wide range of hardware platforms, including CPUs with multiple cores and SIMD instructions, as well as GPUs.
+3. **Flexibility**: x265 supports a wide range of encoding options and parameters, allowing users to fine-tune the encoding process to meet their specific needs.
+4. **Open Source**: x265 is available as an open source project under the GPLv2 license, which means it can be freely used, modified, and distributed.
+5. **Commercial Licensing**: For companies that require a commercial license, x265 is available under competitive terms, allowing them to use and distribute x265 without being subject to the GPLv2 license.
 
 x265 is developed by `MulticoreWare <http://www.multicorewareinc.com>`_,
 leaders in high performance software solutions, with backing from
